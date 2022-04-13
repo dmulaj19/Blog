@@ -9,12 +9,12 @@ A blog is a web page, the contents of which are regularly updated by its owner. 
 ---
 
 ### Contributors:
-Alba Pupli
-Bjorni Syla
-Bora Tafa
-Dea Mulaj
-Henri Cela
-Petrika Mano
+1. Alba Pupli
+2. Bjorni Syla
+3. Bora Tafa
+4. Dea Mulaj
+5. Henri Cela
+6. Petrika Mano
 
 
 
