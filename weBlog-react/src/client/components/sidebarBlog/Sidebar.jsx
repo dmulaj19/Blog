@@ -1,18 +1,21 @@
 import { Link } from "react-router-dom";
 import "./sidebar.css";
+import { useAppContext } from '../../../context/context'
+import { useState, useEffect } from "react";
 
 export default function Sidebar() {
+  const { user: [user, setUser], selectedBlog: [selectedBlog, setSelectedBlog] } = useAppContext()
+
   return (
     <div className="sidebarBlog">
       <div className="sidebarItemBlog">
         <span className="sidebarTitleBlog">ABOUT ME</span>
         <img
-          src="https://themegoods-cdn-pzbycso8wng.stackpathdns.com/grandblog/demo/wp-content/uploads/2015/11/aboutme.jpg"
+          src={`data:image/jpeg;base64,${user?.image}`}
           alt=""
         />
         <p>
-          Laboris sunt aute cupidatat velit magna velit ullamco dolore mollit
-          amet ex esse.Sunt eu ut nostrud id quis proident.
+          {user?.description}
         </p>
       </div>
       <div className="sidebarItemBlog">

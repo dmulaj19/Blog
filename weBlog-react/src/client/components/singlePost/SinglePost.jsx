@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import "./singlePost.css";
 import { useAppContext } from '../../../context/context'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Edit, Delete, Publish, ThumbUp, ThumbDown, Reply } from "@material-ui/icons";
 import { mainAxios } from '../../../mainAxios';
 import { useHistory } from "react-router-dom";
-
+import Comment from "../comment/Comment";
 
 export default function SinglePost({ post }) {
   const { user: [user, setUser], selectedBlog: [selectedBlog, setSelectedBlog] } = useAppContext()
@@ -13,8 +13,20 @@ export default function SinglePost({ post }) {
   const [postImage, setPostImage] = useState(null)
   const [selectedFile, setSelectedFile] = useState(null)
   const [updatedPost, setUpdatedPost] = useState({});
+  const [comments, setComments] = useState([])
+  const [newComment, setNewComment] = useState("")
 
-  console.log({ post })
+  useEffect(() => {
+    if (post) {
+      mainAxios.get(`/comments/postId?postId=${post?.id}`)
+        .then(res => {
+          if (res?.status === 200) {
+            console.log({ comments: res?.data })
+            setComments(res?.data)
+          }
+        })
+    }
+  }, [post, newComment]);
 
   const postDate = new Date(post?.createdDate).toLocaleDateString("en-US")
 
@@ -44,25 +56,44 @@ export default function SinglePost({ post }) {
 
     console.log({ body })
     mainAxios.post(`/posts/${post?.id}`, formData)
-      .then(res => {    
-        console.log({res})   
+      .then(res => {
         history.push("/");
       })
   }
 
   const deletePost = () => {
     mainAxios.delete(`/posts/${post?.id}`)
-    .then(res => {    
-      console.log({res})   
-      history.push("/");
-    })
+      .then(res => {
+        history.push("/");
+      })
+  }
+
+  const handleCommentInput = (e) => {
+    setNewComment(e?.target?.value)
+  }
+
+  const submitComment = () => {
+    let comment = {
+      user: {
+        id: user?.id
+      },
+      post: {
+        id: post?.id
+      },
+      content: newComment
+    }
+
+    mainAxios.post(`/comments`, comment)
+      .then(res => {
+        if (res?.status === 201) setNewComment("")
+      })
   }
 
   return (
     <div className="singlePost">
       <div className="singlePostWrapper">
         <img
-          className="singlePostImg"
+          className="userImage"
           src={postImage ? postImage : `data:image/jpeg;base64,${post?.image}`}
           alt=""
         />
@@ -88,11 +119,9 @@ export default function SinglePost({ post }) {
             <Publish />
           </button>
           <button className="singlePostEdit" onClick={updatePost}>
-            <Delete className="deleteBtn" onClick={deletePost}/>
+            <Delete className="deleteBtn" onClick={deletePost} />
           </button>
         </div>
-
-
         <div className="singlePostInfo">
           <span>
             Author:
@@ -115,44 +144,22 @@ export default function SinglePost({ post }) {
         />
         <div class="comments">
           <div class="comments-details">
-            <span class="total-comments comments-sort">117 Comments</span>   
+            <span class="total-comments comments-sort">{comments?.length} {comments.length === 1 ? "Comment" : "Comments"}</span>
           </div>
           <div class="comment-box add-comment">
             <span class="commenter-pic">
-              <img src={postImage ? postImage : `data:image/jpeg;base64,${post?.image}`} className="img-fluid" alt=""/>
+              <img src={postImage ? postImage : `data:image/jpeg;base64,${post?.image}`} className="userImage" alt="" />
             </span>
             <span class="commenter-name">
-              <input type="text" placeholder="Add a public comment" name="Add Comment"/>
-              <button type="submit" class="btn btn-default">Comment</button>
-              <button type="cancel" class="btn btn-default">Cancel</button>
+              <input type="text" placeholder="Add a public comment" name="Add Comment" value={newComment} onChange={handleCommentInput} />
+              <button type="submit" class="btn btn-default" onClick={submitComment}>Comment</button>
+              <button type="cancel" class="btn btn-default" onClick={() => setNewComment("")}>Cancel</button>
             </span>
           </div>
-          <div class="comment-box">
-            <span class="commenter-pic">
-              <img src={postImage ? postImage : `data:image/jpeg;base64,${post?.image}`} className="img-fluid" alt=""/>
-            </span>
-            <span class="commenter-name">
-              <a href="#">Happy markuptag</a> <span class="comment-time">2 hours ago</span>
-            </span>       
-            <p class="comment-txt more">Suspendisse massa enim, condimentum sit amet maximus quis, pulvinar sit amet ante. Fusce eleifend dui mi, blandit vehicula orci iaculis ac.</p>
-            <div class="comment-meta">
-              <button class="comment-like"><ThumbUp/> 99</button>
-              <button class="comment-dislike"><ThumbDown/> 149</button> 
-              <button class="comment-reply reply-popup"><Reply/> Reply</button>         
-            </div>
-            {/* <div class="comment-box add-comment reply-box">
-              <span class="commenter-pic">
-                <img src={postImage ? postImage : `data:image/jpeg;base64,${post?.image}`} className="img-fluid" alt=""/>
-              </span>
-              <span class="commenter-name">
-                <input type="text" placeholder="Add a public reply" name="Add Comment"/>
-                <button type="submit" class="btn btn-default">Reply</button>
-                <button type="cancel" class="btn btn-default reply-popup">Cancel</button>
-              </span>
-          </div> */}
+          {
+            comments?.map(comment => <Comment comment={comment} />)
+          }
         </div>
-      </div>
-        {/* <p className="singlePostDesc">{post?.content}</p> */}
       </div>
     </div>
   );

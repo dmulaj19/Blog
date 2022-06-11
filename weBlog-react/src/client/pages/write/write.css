@@ -5,7 +5,7 @@
 .writeImg {
   margin-left: 150px;
   width: 70vw;
-  height: 250px;
+  height: 350px;
   border-radius: 10px;
   object-fit: cover;
 }
@@ -79,4 +79,17 @@
   cursor: pointer;
   display: flex;
   align-items: center;
+}
+.custom-file-upload {
+  display: inline-block;
+  padding: 15px 600px;
+  cursor: pointer;
+}
+/* input[type="file"] {
+  display: none;
+} */
+.uploadIcon{
+  font-size: 20px;
+  margin-left: 5px;
+  color: teal;
 }

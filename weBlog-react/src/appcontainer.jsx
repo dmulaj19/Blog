@@ -46,7 +46,7 @@ const AppContainer = function (props) {
                                     <Route exact path="/admin">
                                         {adminLoggedIn ? <Home/> : <AdminLogin/>}
                                     </Route>
-                                    <Route path="/adminLogin"> <AdminLogin /></Route>
+                                    {/* <Route path="/adminLogin"> <AdminLogin /></Route> */}
                                     <Route path="/admin/users">
                                         <UserList />
                                     </Route>

@@ -17,7 +17,7 @@ export default function Topbar() {
     e.preventDefault();
     setUser(null);
     setAuthToken(null);
-    history.push("/adminLogin");
+    history.push("/admin");
   };
 
   return (

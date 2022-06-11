@@ -19,7 +19,7 @@
   font-size: 30px;
 }
 .registerForm {
-  margin-top: 20px;
+  margin-top: 5px;
   display: flex;
   flex-direction: column;
 }
@@ -29,7 +29,7 @@
 }
 
 .registerInput {
-  padding: 10px;
+  padding: 5px;
   background-color: white;
   border: none;
   border-radius: 10px;

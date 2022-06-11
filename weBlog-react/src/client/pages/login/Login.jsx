@@ -37,6 +37,7 @@ export default function Login() {
 
     mainAxios.post('/authenticate', loginInput)
       .then(res => {
+        console.log({authenticate: res})
         if (res.status === 200) {
           setUser(res?.data.user)
           setUserIsLoggedIn(true)
@@ -63,8 +64,8 @@ export default function Login() {
         <div className="login">
           <span className="loginTitle">Login</span>
           <form className="loginForm" onSubmit={handleLogin}>
-            <label>Email</label>
-            <input className="loginInput" name="username" type="text" placeholder="Enter your email..." onChange={handleLoginInput} />
+            <label>Username</label>
+            <input className="loginInput" name="username" type="text" placeholder="Enter your username..." onChange={handleLoginInput} />
             <label>Password</label>
             <input className="loginInput" name="password" type="password" placeholder="Enter your password..." onChange={handleLoginInput} />
             <button className="loginButton">Login</button>

@@ -3,6 +3,8 @@ import axios from 'axios'
 import "./write.css";
 import { mainAxios } from '../../../mainAxios';
 import { useHistory } from "react-router-dom";
+import { useAppContext } from '../../../context/context'
+import { CloudUpload } from "@material-ui/icons";
 
 export default function Write() {
 
@@ -10,6 +12,7 @@ export default function Write() {
   const [post, setPost] = useState({});
   const [postImage, setPostImage] = useState("https://images.pexels.com/photos/6685428/pexels-photo-6685428.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500")
   const [selectedFile, setSelectedFile] = useState(null)
+  const { user: [user, setUser], selectedBlog: [selectedBlog, setSelectedBlog] } = useAppContext()
 
   const handlePostInputs = (e) => {
     const key = e.target.name
@@ -30,7 +33,7 @@ export default function Write() {
   const submitPost = (e) => {
     e.preventDefault();
 
-    let body = { ...post, blog: { id: 6 } }
+    let body = { ...post, blog: { id: selectedBlog?.id } }
 
     let formData = new FormData();
     formData.append("file", selectedFile);
@@ -38,6 +41,7 @@ export default function Write() {
 
     mainAxios.post('/posts', formData)
       .then(res => {
+        console.log({ res })
         history.push("/");
       })
   }
@@ -50,14 +54,26 @@ export default function Write() {
           src={postImage}
           alt=""
         />
-        <input
+        {/* <input
           type="file"
           name="image"
           id="file"
           accept=".jpeg, .png, .jpg"
           onChange={fileSelectedHandler}
           class="writePPInput"
-        />
+        /> */}
+        <label className="custom-file-upload">
+          <input
+            style={{display: 'none'}}
+            type="file"
+            name="image"
+            id="file"
+            accept=".jpeg, .png, .jpg"
+            onChange={fileSelectedHandler}
+            class="writePPInput"
+          />
+          <CloudUpload className="uploadIcon" /> Upload Photo of Blog
+        </label>
       </div>
       <form className="writeForm" onSubmit={submitPost}>
         <div className="writeFormGroup">

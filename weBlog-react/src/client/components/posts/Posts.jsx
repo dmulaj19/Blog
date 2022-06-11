@@ -11,7 +11,7 @@ export default function Posts() {
 
   
   useEffect(() => {
-    mainAxios.get('/posts')
+    mainAxios.get(`/posts/blogId?blogId=${selectedBlog?.id}`)
       .then(res => {
         if(res?.status === 200) {
           setPosts([...res?.data])
@@ -19,7 +19,8 @@ export default function Posts() {
       })
   },[]);
 
-  console.log({posts})
+  // console.log({posts})
+
   return (
     <div className="posts">
       {posts.map((post) => {
