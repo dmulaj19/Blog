@@ -24,6 +24,8 @@ import "./App.css";
 
 import { useAppContext } from './context/context'
 import HomepageVisitor from "./blogVisitor/pages/homepage/HomepageVisitor";
+import RegisterVisitor from "./blogVisitor/pages/register/RegisterVisitor";
+import LoginVisitor from "./blogVisitor/pages/login/LoginVisitor";
 
 const AppContainer = function (props) {
     const { user: [user, setUser], selectedBlog: [selectedBlog, setSelectedBlog] } = useAppContext()
@@ -35,7 +37,7 @@ const AppContainer = function (props) {
 
     if (props) {
         const url = props.location.pathname.split("/")[1];
-
+        console.log({ url })
         return (
             <Router>
                 {
@@ -76,39 +78,43 @@ const AppContainer = function (props) {
                         </>
                     ) :
                         (
-                            blogVisitorLoggedIn===false || blogVisitorLoggedIn===null ? (
+                            url !== "weblog" ? (
                                 <div>
-                                <TopbarBlog />
-                                <Switch>
-                                    <Route exact path="/">
-                                        {/* {bloggerLoggedIn ? <Homepage /> : <Register />} */}
-                                        <Homepage />
-                                    </Route>
-                                    <Route path="/posts">
-                                        <Homepage />
-                                    </Route>
-                                    <Route path="/register">
-                                        {bloggerLoggedIn ? <Homepage /> : <Register />}
-                                    </Route>
-                                    <Route path="/login"> <Login /></Route>
-                                    <Route path="/post/:id">
-                                        <Single />
-                                    </Route>
-                                    <Route path="/write">{bloggerLoggedIn ? <Write /> : <Login />}</Route>
-                                    <Route path="/settings">
-                                        {bloggerLoggedIn ? <Settings /> : <Login />}
-                                    </Route>
-                                </Switch>
-                            </div>
+                                    <TopbarBlog />
+                                    <Switch>
+                                        <Route exact path="/">
+                                            {/* {bloggerLoggedIn ? <Homepage /> : <Register />} */}
+                                            <Homepage />
+                                        </Route>
+                                        <Route path="/posts">
+                                            <Homepage />
+                                        </Route>
+                                        <Route path="/register">
+                                            {bloggerLoggedIn ? <Homepage /> : <Register />}
+                                        </Route>
+                                        <Route path="/login"> <Login /></Route>
+                                        <Route path="/post/:id">
+                                            <Single />
+                                        </Route>
+                                        <Route path="/write">{bloggerLoggedIn ? <Write /> : <Login />}</Route>
+                                        <Route path="/settings">
+                                            {bloggerLoggedIn ? <Settings /> : <Login />}
+                                        </Route>
+                                    </Switch>
+                                </div>
                             ) : (
                                 <div>
-                                <TopbarBlog />                                
-                                <Switch>
-                                    <Route exact path="/weblog">                                       
-                                        <HomepageVisitor />
-                                    </Route>                                   
-                                </Switch>
-                            </div>
+                                    <TopbarBlog />
+                                    <Switch>
+                                        <Route exact path="/weblog">
+                                            <HomepageVisitor />
+                                        </Route>
+                                        <Route path="/weblog/register">
+                                            {blogVisitorLoggedIn ? <HomepageVisitor /> : <RegisterVisitor />}
+                                        </Route>
+                                        <Route path="/weblog/login"> <LoginVisitor /></Route>
+                                    </Switch>
+                                </div>
                             )
                         )}
             </Router>

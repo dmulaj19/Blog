@@ -39,8 +39,8 @@ export default function HomepageVisitor() {
             return (
               <div className="post">
                 <img
-                  className="postImg"
-                  src={"https://images.pexels.com/photos/317355/pexels-photo-317355.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"}
+                  className="postImg"s
+                  src={blog.image ? `data:image/jpeg;base64,${blog?.image}` : "https://images.pexels.com/photos/768473/pexels-photo-768473.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"}
                   alt=""
                 />
                 <div className="postInfo">
