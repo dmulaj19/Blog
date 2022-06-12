@@ -27,6 +27,8 @@ import HomepageVisitor from "./blogVisitor/pages/homepage/HomepageVisitor";
 import RegisterVisitor from "./blogVisitor/pages/register/RegisterVisitor";
 import LoginVisitor from "./blogVisitor/pages/login/LoginVisitor";
 import TopbarVisitor from "./blogVisitor/components/topbarBlog/TopbarVisitor";
+import PostsVisitor from "./blogVisitor/components/posts/PostsVisitor";
+import SingleVisitor from "./blogVisitor/pages/single/SingleVisitor";
 
 const AppContainer = function (props) {
     const { user: [user, setUser], selectedBlog: [selectedBlog, setSelectedBlog] } = useAppContext()
@@ -114,6 +116,12 @@ const AppContainer = function (props) {
                                             {blogVisitorLoggedIn ? <HomepageVisitor /> : <RegisterVisitor />}
                                         </Route>
                                         <Route path="/weblog/login"> <LoginVisitor /></Route>
+                                        <Route path="/weblog/blog/:id">
+                                            <PostsVisitor/>
+                                        </Route>
+                                        <Route path="/weblog/post/:id">
+                                            <SingleVisitor/>
+                                        </Route>
                                     </Switch>
                                 </div>
                             )

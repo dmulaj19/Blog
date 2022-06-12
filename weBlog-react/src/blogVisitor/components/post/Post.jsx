@@ -3,7 +3,7 @@ import "./post.css";
 
 export default function Post({ categories, postId, img, postTitle, postContent, postDate }) {
 
-
+  console.log("hi")
   return (
     <div className="post">
       <img
@@ -26,7 +26,7 @@ export default function Post({ categories, postId, img, postTitle, postContent, 
           }
         </div>
         <span className="postTitle">
-          <Link to={`/post/${postId}`} className="link">
+          <Link to={`weblog/post/${postId}`} className="link">
             {postTitle}
           </Link>
         </span>

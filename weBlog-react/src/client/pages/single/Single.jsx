@@ -9,6 +9,8 @@ export default function Single() {
   const { id } = useParams();
   const [post, setPost] = useState(null)
 
+  console.log({id})
+
   useEffect(() => {
       mainAxios.get('/posts/'+id)
       .then(res => {

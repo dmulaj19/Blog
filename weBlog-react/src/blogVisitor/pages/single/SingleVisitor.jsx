@@ -5,9 +5,11 @@ import "./single.css";
 import { useParams } from "react-router-dom";
 import { mainAxios } from '../../../mainAxios';
 
-export default function Single() {
+export default function SingleVisitor() {
   const { id } = useParams();
   const [post, setPost] = useState(null)
+
+  console.log({id})
 
   useEffect(() => {
       mainAxios.get('/posts/'+id)
