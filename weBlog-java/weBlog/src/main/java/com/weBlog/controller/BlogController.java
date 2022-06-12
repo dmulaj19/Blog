@@ -8,7 +8,9 @@ import com.weBlog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -34,6 +36,14 @@ public class BlogController {
     public ResponseEntity createReservation(@RequestBody Blog blog) throws URISyntaxException {
         Blog savedBlog = blogRepository.save(blog);
         return ResponseEntity.created(new URI("/blogs/" + savedBlog.getId())).body(savedBlog);
+    }
+
+    @PutMapping("/{id}/uploadPhoto")
+    public ResponseEntity uploadPhoto(@PathVariable Long id, @RequestPart("file") MultipartFile file) throws IOException {
+        Blog currentBlog = blogRepository.findById(id).orElseThrow(RuntimeException::new);
+        currentBlog.setImage(file.getBytes());
+        blogRepository.save(currentBlog);
+        return ResponseEntity.ok(currentBlog);
     }
 
     @PutMapping("/{id}")

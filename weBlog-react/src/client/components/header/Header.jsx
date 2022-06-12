@@ -23,10 +23,10 @@ export default function Header() {
       let formData = new FormData();
       formData.append("file", selectedFile);
 
-      // mainAxios.post('/blogs', formData)
-      // .then(res => {
-      //   console.log({ res })       
-      // })
+      mainAxios.put(`/blogs/${selectedBlog?.id}/uploadPhoto`, formData)
+      .then(res => {
+        console.log({ res })       
+      })
     }
   }, [selectedFile]);
 

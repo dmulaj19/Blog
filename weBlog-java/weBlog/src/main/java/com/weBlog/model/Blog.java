@@ -40,6 +40,8 @@ public class Blog {
 
     private int active;
 
+    private byte[] image;
+
     @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinColumn(name = "request_id", referencedColumnName = "id")
     private Request request;
