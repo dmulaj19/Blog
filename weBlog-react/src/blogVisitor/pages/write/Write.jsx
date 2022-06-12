@@ -72,7 +72,7 @@ export default function Write() {
             onChange={fileSelectedHandler}
             class="writePPInput"
           />
-          <CloudUpload className="uploadIcon" /> Upload Photo of Blog
+          <CloudUpload className="uploadIcon" /> Upload Photo of Post
         </label>
       </div>
       <form className="writeForm" onSubmit={submitPost}>

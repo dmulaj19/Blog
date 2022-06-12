@@ -23,7 +23,7 @@ export default function Posts() {
 
   return (
     <div className="posts">
-      {posts.map((post) => {
+      {posts && posts.map((post) => {
         const postDate = new Date(post.createdDate).toLocaleDateString("en-US")
         return (
           <Post

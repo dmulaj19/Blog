@@ -76,7 +76,7 @@ const AppContainer = function (props) {
                         </>
                     ) :
                         (
-                            blogVisitorLoggedIn===false ? (
+                            blogVisitorLoggedIn===false || blogVisitorLoggedIn===null ? (
                                 <div>
                                 <TopbarBlog />
                                 <Switch>
