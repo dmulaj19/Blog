@@ -26,6 +26,7 @@ import { useAppContext } from './context/context'
 import HomepageVisitor from "./blogVisitor/pages/homepage/HomepageVisitor";
 import RegisterVisitor from "./blogVisitor/pages/register/RegisterVisitor";
 import LoginVisitor from "./blogVisitor/pages/login/LoginVisitor";
+import TopbarVisitor from "./blogVisitor/components/topbarBlog/TopbarVisitor";
 
 const AppContainer = function (props) {
     const { user: [user, setUser], selectedBlog: [selectedBlog, setSelectedBlog] } = useAppContext()
@@ -104,7 +105,7 @@ const AppContainer = function (props) {
                                 </div>
                             ) : (
                                 <div>
-                                    <TopbarBlog />
+                                    <TopbarVisitor />
                                     <Switch>
                                         <Route exact path="/weblog">
                                             <HomepageVisitor />

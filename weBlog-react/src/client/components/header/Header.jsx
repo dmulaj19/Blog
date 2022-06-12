@@ -55,7 +55,7 @@ export default function Header() {
         // src="https://images.pexels.com/photos/1167355/pexels-photo-1167355.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
         alt=""
       />
-      <label className="custom-file-upload">
+      {user && <label className="custom-file-upload">
         <input
           style={{ display: 'none' }}
           type="file"
@@ -66,7 +66,7 @@ export default function Header() {
           class="writePPInput"
         />
         <CloudUpload className="uploadIcon" /> Upload Photo of Blog
-      </label>
+      </label>}
     </div>
   );
 }

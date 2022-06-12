@@ -5,7 +5,7 @@ import { setAuthToken } from '../../../mainAxios'
 import { useHistory } from "react-router-dom";
 import { NotificationsNone, Language, Settings } from "@material-ui/icons";
 
-export default function Topbar() {
+export default function TopbarVisitor() {
   const { user: [user, setUser], selectedBlog: [selectedBlog, setSelectedBlog] } = useAppContext()
 
   let history = useHistory();
@@ -18,7 +18,7 @@ export default function Topbar() {
     setUser(null);
     setAuthToken(null);
     setSelectedBlog(null)
-    history.push("/login");
+    history.push("/weblog/login");
   };
 
   return (
@@ -32,17 +32,12 @@ export default function Topbar() {
       <div className="topBlogCenter">
         <ul className="topBlogList">
           <li className="topBlogListItem">
-            <Link className="link" to="/">
+            <Link className="link" to="/weblog">
               HOME
             </Link>
           </li>
           <li className="topBlogListItem">ABOUT</li>
-          <li className="topBlogListItem">CONTACT</li>
-          <li className="topBlogListItem">
-            <Link className="link" to="/write">
-              WRITE
-            </Link>
-          </li>
+          <li className="topBlogListItem">CONTACT</li>          
           {/* {user && <li className="topBlogListItem">LOGOUT</li>} */}
           
         </ul>
@@ -50,13 +45,13 @@ export default function Topbar() {
       <div className="topBlogRight">
         {user ? (
           <>
-          <Link className="link" to="/settings">
+          {/* <Link className="link" to="/weblog/settings">
             <div className="topbarIconContainer">
             <Settings />
           </div>
-          </Link>
+          </Link> */}
           <a 
-            href="/"
+            href="/weblog"
             className="logOutBtnClient"
             onClick={handleLogout}
           >
@@ -67,12 +62,12 @@ export default function Topbar() {
         ) : (
           <ul className="topBlogList">
             <li className="topBlogListItem">
-              <Link className="link" to="/login">
+              <Link className="link" to="/weblog/login">
                 LOGIN
               </Link>
             </li>
             <li className="topBlogListItem">
-              <Link className="link" to="/register">
+              <Link className="link" to="/weblog/register">
                 REGISTER
               </Link>
             </li>
