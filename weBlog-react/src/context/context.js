@@ -7,7 +7,12 @@ export const usePersistedState = (defaultValue, key) => {
     key
   );
   React.useEffect(() => {
+    try {
     localStorage.setItem(key, JSON.stringify(state));
+    } catch (e) {
+      console.log("Local Storage is full, Please empty data");
+      //localStorage.clear(); 
+    }
   }, [key, state]);
 
   const resetState = () => setState(defaultValue);

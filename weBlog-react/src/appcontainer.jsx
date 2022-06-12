@@ -23,14 +23,16 @@ import Write from "./client/pages/write/Write";
 import "./App.css";
 
 import { useAppContext } from './context/context'
+import HomepageVisitor from "./blogVisitor/pages/homepage/HomepageVisitor";
 
 const AppContainer = function (props) {
     const { user: [user, setUser], selectedBlog: [selectedBlog, setSelectedBlog] } = useAppContext()
     const bloggerLoggedIn = user && user?.role?.id === 2;
+    const blogVisitorLoggedIn = user && user?.role?.id === 3;
     const adminLoggedIn = user && user?.role?.id === 1;
 
-    console.log({bloggerLoggedIn, adminLoggedIn})
-    
+    console.log({ bloggerLoggedIn, adminLoggedIn, blogVisitorLoggedIn })
+
     if (props) {
         const url = props.location.pathname.split("/")[1];
 
@@ -44,14 +46,14 @@ const AppContainer = function (props) {
                                 {adminLoggedIn ? <Sidebar /> : <></>}
                                 <Switch>
                                     <Route exact path="/admin">
-                                        {adminLoggedIn ? <Home/> : <AdminLogin/>}
+                                        {adminLoggedIn ? <Home /> : <AdminLogin />}
                                     </Route>
                                     {/* <Route path="/adminLogin"> <AdminLogin /></Route> */}
                                     <Route path="/admin/users">
                                         <UserList />
                                     </Route>
                                     <Route path="/admin/requests">
-                                        <RequestList/>
+                                        <RequestList />
                                     </Route>
                                     <Route path="/user/:userId">
                                         <User />
@@ -74,12 +76,13 @@ const AppContainer = function (props) {
                         </>
                     ) :
                         (
-                            <div>
+                            blogVisitorLoggedIn===false ? (
+                                <div>
                                 <TopbarBlog />
                                 <Switch>
                                     <Route exact path="/">
-                                    {/* {bloggerLoggedIn ? <Homepage /> : <Register />} */}
-                                    <Homepage />
+                                        {/* {bloggerLoggedIn ? <Homepage /> : <Register />} */}
+                                        <Homepage />
                                     </Route>
                                     <Route path="/posts">
                                         <Homepage />
@@ -96,7 +99,18 @@ const AppContainer = function (props) {
                                         {bloggerLoggedIn ? <Settings /> : <Login />}
                                     </Route>
                                 </Switch>
-                            </div>)}
+                            </div>
+                            ) : (
+                                <div>
+                                <TopbarBlog />                                
+                                <Switch>
+                                    <Route exact path="/weblog">                                       
+                                        <HomepageVisitor />
+                                    </Route>                                   
+                                </Switch>
+                            </div>
+                            )
+                        )}
             </Router>
         );
     }
