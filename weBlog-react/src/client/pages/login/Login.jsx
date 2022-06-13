@@ -98,7 +98,7 @@ export default function Login() {
 
   return (
     <>
-      {!userIsLoggedIn ?
+      {!user ?
         <div className="login">
           <span className="loginTitle">Login</span>
           <form className="loginForm" onSubmit={handleLogin}>

@@ -8,14 +8,21 @@ import { mainAxios } from '../../../mainAxios';
 export default function Header() {
   const { user: [user, setUser], selectedBlog: [selectedBlog, setSelectedBlog] } = useAppContext()
   const [selectedFile, setSelectedFile] = useState(null)
-  const [postImage, setPostImage] = useState("https://images.pexels.com/photos/317355/pexels-photo-317355.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940")
+  const [postImage, setPostImage] = useState("")
 
-  const fileSelectedHandler = event => {
-    console.log(event.target.files[0])
+  const fileSelectedHandler = event => {   
     setSelectedFile(event.target.files[0])
     setPostImage(URL.createObjectURL(event.target.files[0]))
   }
 
+  useEffect(() => {
+    if(selectedBlog?.image) {
+      setPostImage(`data:image/jpeg;base64,${selectedBlog?.image}`)
+    } else {
+      setPostImage(("https://images.pexels.com/photos/317355/pexels-photo-317355.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"))
+    }
+   
+  },[])
 
   useEffect(() => {
     if (selectedFile) {
@@ -25,7 +32,8 @@ export default function Header() {
 
       mainAxios.put(`/blogs/${selectedBlog?.id}/uploadPhoto`, formData)
       .then(res => {
-        console.log({ res })       
+        console.log({ res })  
+        setSelectedBlog(res?.data)     
       })
     }
   }, [selectedFile]);
