@@ -7,8 +7,7 @@ import { mainAxios } from '../../../mainAxios';
 import { useHistory } from "react-router-dom";
 import Comment from "../comment/Comment";
 import Select from "react-select";
-
-import { MultiSelect } from "react-multi-select-component";
+import Multiselect from 'multiselect-react-dropdown';
 
 export default function SinglePost({ post }) {
   const { user: [user, setUser], selectedBlog: [selectedBlog, setSelectedBlog] } = useAppContext()
@@ -20,6 +19,7 @@ export default function SinglePost({ post }) {
   const [newComment, setNewComment] = useState("")
   const [categories, setCategories] = useState([])
   const [selected, setSelected] = useState([]);
+  const [selectedValues, setSelectedValues] = useState([])
 
   useEffect(() => {
     if (post) {
@@ -40,8 +40,8 @@ export default function SinglePost({ post }) {
         if (res?.status === 200) {
           let cats = res?.data.map(category => {
             return {
-              value: category?.id,
-              label: category?.name
+              cat: category?.id,
+              key: category?.name
             }
           })
           setCategories(cats)
@@ -49,7 +49,17 @@ export default function SinglePost({ post }) {
       })
   }, []);
 
-  console.log({ categories })
+  useEffect(() => {
+
+    let selectedCats = post?.assignedCategories.map(category => {
+      return {
+        cat: category?.id,
+        key: category?.name
+      }
+    })
+
+    setSelectedValues(selectedCats)
+  }, [post])
 
   const postDate = new Date(post?.createdDate).toLocaleDateString("en-US")
 
@@ -77,7 +87,7 @@ export default function SinglePost({ post }) {
     formData.append("file", selectedFile);
     formData.append("post", JSON.stringify(body))
 
-    console.log({ body })
+
     mainAxios.post(`/posts/${post?.id}`, formData)
       .then(res => {
         history.push("/");
@@ -112,12 +122,27 @@ export default function SinglePost({ post }) {
       })
   }
 
-  const selectCategories = (options) => {
-    console.log({ options })
-    setSelected(options)
+  const onValueChange = (event) => {
+    setSelected(event.target.value)
+  }
+  const formSubmit = (event) => {
+    event.preventDefault();
+    console.log({ selected })
   }
 
-  console.log({selected})
+  const onRemoveCat = (list, item) => {
+    console.log({ list, item })
+
+  }
+
+  const onSelectCat = (list, item) => {
+    console.log({ list, item })
+
+    mainAxios.put(`/posts/${post?.id}/categories/${item?.cat}`)
+      .then(res => {
+        console.log({ res })
+      })
+  }
 
   return (
     <div className="singlePost">
@@ -174,7 +199,16 @@ export default function SinglePost({ post }) {
         />
         <div className="categories-div">
           <label className="categories-label">Categories</label>
-          {categories &&
+          <Multiselect
+            selectedValues={selectedValues}
+            displayValue="key"
+            onKeyPressFn={function noRefCheck() { }}
+            onRemove={(list, item) => onRemoveCat(list, item)}
+            onSearch={function noRefCheck() { }}
+            onSelect={onSelectCat}
+            options={categories}
+          />
+          {/* {categories &&
             <div className="categories-select">
               <MultiSelect
                 options={categories}
@@ -183,7 +217,7 @@ export default function SinglePost({ post }) {
                 labelledBy="Select"
               />
             </div>
-          }
+          } */}
         </div>
         <div class="comments">
           <div class="comments-details">
