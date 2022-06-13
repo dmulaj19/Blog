@@ -12,6 +12,10 @@
   background-size: cover;
 }
 
+.registerFormWrapper{
+  width: 20%;
+}
+
 .registerTitle {
   font-size: 50px;
 }
@@ -60,4 +64,8 @@
   border: none;
   color: white;
   border-radius: 10px;
+}
+
+.registerInputError {
+  border: 1px solid red;
 }

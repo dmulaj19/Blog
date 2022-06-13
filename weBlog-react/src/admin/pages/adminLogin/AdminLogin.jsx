@@ -12,6 +12,8 @@ toast.configure()
 export default function Login() {
     const [loginInput, setLoginInput] = useState({});
     const [error, setError] = useState("")
+    const [inputErrors, setInputErrors] = useState({})
+
     const { user: [user, setUser], selectedBlog: [selectedBlog, setSelectedBlog] } = useAppContext()
     let history = useHistory();
 
@@ -25,10 +27,32 @@ export default function Login() {
         }))
     }
 
+
+    const handleValidation = () => {
+        let fields = loginInput;
+        let errors = {};
+        let formIsValid = true;
+    
+        //First name
+        if (!fields["username"]) {
+          formIsValid = false;
+          errors["username"] = "Fill in your username!";
+        }
+    
+        //Password
+        if (!fields["password"]) {
+          formIsValid = false;
+          errors["password"] = "Fill in your password!";
+        }
+    
+        setInputErrors(errors);
+        return formIsValid;
+      }
+
     const handleLogin = (e) => {
         e.preventDefault();
-
-        mainAxios.post('/authenticate', loginInput)
+        if(handleValidation()){
+            mainAxios.post('/authenticate', loginInput)
             .then(res => {
                 console.log({ res })
                 if (res.status === 200) {
@@ -54,6 +78,8 @@ export default function Login() {
                 });
             }
             )
+        }
+        
 
     }
 
@@ -62,10 +88,14 @@ export default function Login() {
             <div className="login">
                 <span className="loginTitle">Login</span>
                 <form className="loginForm" onSubmit={handleLogin}>
-                    <label>Email</label>
-                    <input className="loginInput" name="username" type="text" placeholder="Enter your email..." onChange={handleLoginInput} />
+                    <label>Username</label>
+                    <input className={`loginInput ${inputErrors["username"] ? 'loginInputError': '' }`} name="username" type="text" placeholder="Enter your username..." onChange={handleLoginInput} />
+                    <span style={{ color: "red" }}>{inputErrors["username"]}</span>
+
                     <label>Password</label>
-                    <input className="loginInput" name="password" type="password" placeholder="Enter your password..." onChange={handleLoginInput} />
+                    <input className={`loginInput ${inputErrors["password"] ? 'loginInputError': '' }`} name="password" type="password" placeholder="Enter your password..." onChange={handleLoginInput} />
+                    <span style={{ color: "red" }}>{inputErrors["password"]}</span>
+                    
                     <button className="loginButton">Login</button>
                 </form>
             </div>

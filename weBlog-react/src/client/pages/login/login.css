@@ -17,6 +17,7 @@
 }
 
 .loginForm {
+  width: 20%;
   margin-top: 20px;
   display: flex;
   flex-direction: column;
@@ -72,4 +73,8 @@
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 0.25rem;
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+
+.loginInputError {
+  border: 1px solid red;
 }

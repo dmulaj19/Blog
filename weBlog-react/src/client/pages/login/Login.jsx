@@ -4,10 +4,15 @@ import { useAppContext } from '../../../context/context'
 import "./login.css";
 import { Link, useHistory } from "react-router-dom";
 import { mainAxios, setAuthToken } from '../../../mainAxios'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+toast.configure()
 
 export default function Login() {
   const [loginInput, setLoginInput] = useState({});
   const [selectedBlogOption, setSelectedBlogOption] = useState("default")
+  const [inputErrors, setInputErrors] = useState({})
   const [error, setError] = useState("")
   const [userIsLoggedIn, setUserIsLoggedIn] = useState(false)
   const { user: [user, setUser], selectedBlog: [selectedBlog, setSelectedBlog] } = useAppContext()
@@ -32,10 +37,32 @@ export default function Login() {
     setSelectedBlogOption(blog)
   }
 
+  const   handleValidation = () => {
+    let fields = loginInput;
+    let errors = {};
+    let formIsValid = true;
+
+    //First name
+    if (!fields["username"]) {
+      formIsValid = false;
+      errors["username"] = "Fill in your username!";
+    }
+
+    //Password
+    if (!fields["password"]) {
+      formIsValid = false;
+      errors["password"] = "Fill in your password!";
+    }
+
+    setInputErrors(errors);
+    return formIsValid;
+  }
+
+
   const handleLogin = (e) => {
     e.preventDefault();
-
-    mainAxios.post('/authenticate', loginInput)
+    if(handleValidation()){
+      mainAxios.post('/authenticate', loginInput)
       .then(res => {
         console.log({authenticate: res})
         if (res.status === 200) {
@@ -44,10 +71,21 @@ export default function Login() {
           setAuthToken(res.data.token)
 
         }
-        else {
-          setError("Invalid Credentials")
-        }
-      })
+        
+      }).catch(err => {
+        console.log({ err })
+        toast.error('Invalid credentials', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+    }
+    )
+    }
 
   }
 
@@ -65,9 +103,13 @@ export default function Login() {
           <span className="loginTitle">Login</span>
           <form className="loginForm" onSubmit={handleLogin}>
             <label>Username</label>
-            <input className="loginInput" name="username" type="text" placeholder="Enter your username..." onChange={handleLoginInput} />
+            <input className={`loginInput ${inputErrors["username"] ? 'loginInputError': '' }`} name="username" type="text" placeholder="Enter your username..." onChange={handleLoginInput} />
+            <span style={{ color: "red" }}>{inputErrors["username"]}</span>
+
             <label>Password</label>
-            <input className="loginInput" name="password" type="password" placeholder="Enter your password..." onChange={handleLoginInput} />
+            <input className={`loginInput ${inputErrors["password"] ? 'loginInputError': '' }`} name="password" type="password" placeholder="Enter your password..." onChange={handleLoginInput} />
+            <span style={{ color: "red" }}>{inputErrors["password"]}</span>
+            
             <button className="loginButton">Login</button>
           </form>
         </div>
