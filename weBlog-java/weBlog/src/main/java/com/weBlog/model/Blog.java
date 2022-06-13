@@ -33,6 +33,9 @@ public class Blog {
     @JoinColumn(name = "owner_id")
     private User user;
 
+    @Column(name = "owner_id", insertable = false, updatable = false)
+    private long ownerId;
+
     @Column(name = "name")
     private String name;
 

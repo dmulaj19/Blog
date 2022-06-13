@@ -10,7 +10,7 @@ export default function Topbar() {
 
   let history = useHistory();
 
-  console.log({blogger: user })
+  // console.log({blogger: user })
 
   const handleLogout = (e) => {
     console.log("blogger logging out")

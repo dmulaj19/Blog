@@ -21,7 +21,7 @@ export default function Settings() {
       })
   }, []);
 
-  console.log({blogger})
+  // console.log({blogger})
 
   const handleUpdateInput = (e) => {
     const key = e.target.name

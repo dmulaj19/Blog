@@ -1,4 +1,4 @@
-import Post from "../post/Post";
+import Post from "../post/PostVisitor";
 import "./posts.css";
 import { useAppContext } from '../../../context/context'
 import { useState, useEffect } from "react";
@@ -10,13 +10,12 @@ export default function PostsVisitor() {
   const { id } = useParams();
   const [posts, setPosts] = useState([])
   const [blog, setBlog] = useState({})
-  console.log({ id })
 
   useEffect(() => {
     mainAxios.get(`/blogs/${id}`)
       .then(res => {
         if (res?.status === 200) {
-          console.log({blog: res?.data})
+          console.log({ blog: res?.data })
           setBlog(res?.data)
         }
       })
@@ -32,7 +31,7 @@ export default function PostsVisitor() {
       })
   }, []);
 
-  console.log({ posts })
+
 
   return (
     <>
@@ -61,7 +60,8 @@ export default function PostsVisitor() {
               img={`data:image/jpeg;base64,${post?.image}`}
             />
           )
-        })}
+        })
+        }
       </div>
     </>
 

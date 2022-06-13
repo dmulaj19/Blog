@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Sidebar from "../../components/sidebarBlog/Sidebar";
-import SinglePost from "../../components/singlePost/SinglePost";
+import SinglePostVisitor from "../../components/singlePost/SinglePostVisitor";
 import "./single.css";
 import { useParams } from "react-router-dom";
 import { mainAxios } from '../../../mainAxios';
@@ -9,7 +9,7 @@ export default function SingleVisitor() {
   const { id } = useParams();
   const [post, setPost] = useState(null)
 
-  console.log({id})
+  console.log({postId: id})
 
   useEffect(() => {
       mainAxios.get('/posts/'+id)
@@ -20,7 +20,7 @@ export default function SingleVisitor() {
 
   return (
     <div className="single">
-      <SinglePost post={post}/>
+      <SinglePostVisitor post={post}/>
       <Sidebar />
     </div>
   );

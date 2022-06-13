@@ -36,6 +36,12 @@ public class PostController {
     public ResponseEntity<List<Post>> getPostsByBlogId(@RequestParam String blogId) {
         return new ResponseEntity<List<Post>>(postRepository.findByBlogId(Long.parseLong(blogId)), HttpStatus.OK);
     }
+//
+//    @GetMapping("/{postId}")
+//    public Post getOwnerOfPost(@PathVariable Long postId) {
+//        return postRepository.findById(id).orElseThrow(RuntimeException::new);
+//    }
+
 
     @PutMapping("/{postId}/categories/{categoryId}")
     Post addCategoryToPost(

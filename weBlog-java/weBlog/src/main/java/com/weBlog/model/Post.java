@@ -33,6 +33,9 @@ public class Post {
     @JoinColumn(name = "blog_id")
     private Blog blog;
 
+    @Column(name = "blog_id", insertable = false, updatable = false)
+    private long blogId;
+
     private String title;
 
     private String content;

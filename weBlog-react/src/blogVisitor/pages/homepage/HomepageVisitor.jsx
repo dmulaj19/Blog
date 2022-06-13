@@ -18,7 +18,7 @@ export default function HomepageVisitor() {
       })
   }, []);
 
-  console.log({ blogs })
+  console.log({homepageBlogs: blogs })
   
   return (
     <>

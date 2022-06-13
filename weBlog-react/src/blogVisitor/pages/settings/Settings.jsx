@@ -21,7 +21,7 @@ export default function Settings() {
       })
   }, []);
 
-  console.log({blogger})
+  // console.log({blogger})
 
   const handleUpdateInput = (e) => {
     const key = e.target.name
@@ -34,7 +34,7 @@ export default function Settings() {
   }
 
   const fileSelectedHandler = event => {
-    console.log(event.target.files[0])
+{    // console.log(event.target.files[0])}
     setSelectedFile(event.target.files[0])
     setPreviewImage(URL.createObjectURL(event.target.files[0]))
   }

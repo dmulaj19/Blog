@@ -40,7 +40,7 @@ const AppContainer = function (props) {
 
     if (props) {
         const url = props.location.pathname.split("/")[1];
-        console.log({ url })
+        //console.log({ url })
         return (
             <Router>
                 {

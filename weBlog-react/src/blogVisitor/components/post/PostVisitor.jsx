@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
 import "./post.css";
 
-export default function Post({ categories, postId, img, postTitle, postContent, postDate }) {
+export default function PostsVisitor({ categories, postId, img, postTitle, postContent, postDate }) {
 
-  console.log("hi")
   return (
     <div className="post">
       <img
@@ -26,7 +25,7 @@ export default function Post({ categories, postId, img, postTitle, postContent, 
           }
         </div>
         <span className="postTitle">
-          <Link to={`weblog/post/${postId}`} className="link">
+          <Link to={`/weblog/post/${postId}`} className="link">
             {postTitle}
           </Link>
         </span>
