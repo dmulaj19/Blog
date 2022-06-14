@@ -3,6 +3,7 @@ import "./sidebar.css";
 import { useAppContext } from '../../../context/context'
 import { useState, useEffect } from "react";
 import { mainAxios } from '../../../mainAxios';
+import avatar from "./cat_avatar.png"
 
 export default function Sidebar() {
   const { user: [user, setUser], selectedBlog: [selectedBlog, setSelectedBlog] } = useAppContext()
@@ -23,7 +24,7 @@ export default function Sidebar() {
       <div className="sidebarItemBlog">
         <span className="sidebarTitleBlog">ABOUT ME</span>
         <img
-          src={`data:image/jpeg;base64,${user?.image}`}
+          src={user?.image ? `data:image/jpeg;base64,${user?.image}` : avatar}
           alt=""
         />
         <p>

@@ -107,48 +107,55 @@ export default function SinglePostVisitor({ post }) {
         />
         <h1 className="singlePostTitle">
           {post?.title}
-          <div className="singlePostEdit">
-            <i className="singlePostIcon far fa-edit"></i>
-            <i className="singlePostIcon far fa-trash-alt"></i>
-          </div>
         </h1>
         <div className="singlePostInfo">
-          <span>
-            Author:
-            <b className="singlePostAuthor">
-              <Link className="link" to="/posts?username=Safak">
-                {postWriter?.firstName + " " + postWriter?.lastName}
-              </Link>
-            </b>
-          </span>
+          {
+            postWriter &&
+            <span>
+              Author:
+              <b className="singlePostAuthor">
+                <span className="link">
+                  {postWriter?.firstName + " " + postWriter?.lastName}
+                </span>
+              </b>
+            </span>
+          }
+         
           <span>{postDate}</span>
         </div>
         <p className="singlePostDesc">
           {post?.content}
         </p>
-        {user ? (
-          <div class="comments">
-            <div class="comments-details">
-              <span class="total-comments comments-sort">{comments?.length} {comments.length === 1 ? "Comment" : "Comments"}</span>
-            </div>
+
+        <div class="comments">
+          <div class="comments-details">
+            <span class="total-comments comments-sort">{comments?.length} {comments.length === 1 ? "Comment" : "Comments"}</span>
+          </div>
+          {user ? (
             <div class="comment-box add-comment">
               <span class="commenter-pic">
                 <img src={user?.image ? `data:image/jpeg;base64,${user?.image}` : avatar} className="userImage" alt="" />
               </span>
+
               <span class="commenter-name">
                 <input type="text" placeholder="Add a public comment" name="Add Comment" value={newComment} onChange={handleCommentInput} />
                 <button type="submit" class="btn btn-default" onClick={submitComment}>Comment</button>
                 <button type="cancel" class="btn btn-default" onClick={() => setNewComment("")}>Cancel</button>
               </span>
+
             </div>
-            {
-              comments?.map(comment => <Comment comment={comment} />)
-            }
-          </div>
-        )
-          :
-          <span>Login to leave a comment</span>
-        }
+          )
+            :
+            <div className="linkLoginWrapper">
+              <a href="/weblog/login" className="linkLogin">Login to leave a comment</a>
+            </div>
+           
+          }
+          {
+            comments?.map(comment => <Comment comment={comment} />)
+          }
+        </div>
+
       </div>
     </div>
   );

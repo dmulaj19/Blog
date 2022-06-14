@@ -75,9 +75,9 @@ export default function BlogList() {
       renderCell: (params) => {
         return (
           <>
-            <Link to={"/product/" + params.row.id}>
+            {/* <Link to={"/product/" + params.row.id}>
               <button className="productListEdit">Edit</button>
-            </Link>
+            </Link> */}
             <DeleteOutline
               className="productListDelete"
               onClick={() => handleDelete(params.row.id)}

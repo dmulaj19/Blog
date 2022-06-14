@@ -15,6 +15,7 @@ export default function Register() {
   const [blogName, setBlogName] = useState("")
   const [bloggerId, setBloggerId] = useState(null)
   const [errors, setErrors] = useState({})
+  let history = useHistory();
 
   useEffect(() => {
 
@@ -190,6 +191,8 @@ export default function Register() {
                 console.log({ res })
                 if (res.status === 201) {
                   setInfoMsg("Thank you for registering. Your blog will be shortly active.")
+                 
+                  setTimeout(()=>{history.push("/")},4000)
                 }
               })
           }
@@ -239,10 +242,10 @@ export default function Register() {
                 <span className="registerTitle">Create your blog</span>
                 <form className="registerForm" onSubmit={createBlog}>
                   <label>Blog Name</label>
-                  <input className="registerInput" name="blogName" type="text" placeholder="Blog Name" onChange={handleBlogName} />
+                  <input className="registerInput" name="blogName" type="text" defaultValue="" placeholder="Blog Name" onChange={handleBlogName} />
                   <button className="registerButton" onClick={createBlog}>Create</button>
                 </form>
-              </>
+              </> 
               :
               <span className="infoMsg">{infoMsg}</span>
           }
