@@ -1,11 +1,11 @@
 import "./settings.css";
 import Sidebar from "../../components/sidebarBlog/Sidebar";
-import { useAppContext } from  '../../../context/context'
+import { useAppContext } from '../../../context/context'
 import { useState, useEffect } from "react";
 import { mainAxios } from '../../../mainAxios';
 
 
-export default function Settings() {
+export default function SettingsVisitor() {
   const { user: [user, setUser], selectedBlog: [selectedBlog, setSelectedBlog] } = useAppContext()
   const [selectedFile, setSelectedFile] = useState(null)
   const [previewImage, setPreviewImage] = useState(`data:image/jpeg;base64,${user?.image}`)
@@ -33,8 +33,7 @@ export default function Settings() {
     }))
   }
 
-  const fileSelectedHandler = event => {
-{    // console.log(event.target.files[0])}
+  const fileSelectedHandler = event => {    // console.log(event.target.files[0])}
     setSelectedFile(event.target.files[0])
     setPreviewImage(URL.createObjectURL(event.target.files[0]))
   }
@@ -55,7 +54,9 @@ export default function Settings() {
     mainAxios.post(`/users/upload/${user.id}`, formData)
       .then(res => {
         console.log(res)
+        setUser(res?.data)
       })
+
   }
 
   return (
@@ -81,17 +82,17 @@ export default function Settings() {
             />
           </div>
           <label>First Name</label>
-          <input type="text" placeholder={user?.firstName} name="firstName" onChange={handleUpdateInput} />
+          <input type="text" defaultValue={user?.firstName} name="firstName" onChange={handleUpdateInput} />
           <label>Last Name</label>
-          <input type="text" placeholder={user?.lastName} name="lastName" onChange={handleUpdateInput} />
+          <input type="text" defaultValue={user?.lastName} name="lastName" onChange={handleUpdateInput} />
           <label>Phone Number</label>
-          <input type="text" placeholder={user?.phoneNumber} name="phoneNumber" onChange={handleUpdateInput} />
+          <input type="text" defaultValue={user?.phoneNumber} name="phoneNumber" onChange={handleUpdateInput} />
           <label>Email</label>
-          <input autoComplete="off" type="email" placeholder={user?.email} name="email" onChange={handleUpdateInput} />
+          <input autoComplete="off" type="email" defaultValue={user?.email} name="email" onChange={handleUpdateInput} />
           <label>Username</label>
-          <input type="text" placeholder={user?.username} disabled name="name" />
-          <label>Password</label>
-          <input type="password" placeholder={user?.password} name="password" style={{ pointerEvents: "none" }} />
+          <input type="text" defaultValue={user?.username} disabled name="name" />
+          {/* <label>Password</label>
+          <input type="password" defaultValue={user?.password} name="password" style={{ pointerEvents: "none" }} /> */}
           <button className="settingsSubmitButton" type="submit">
             Update
           </button>

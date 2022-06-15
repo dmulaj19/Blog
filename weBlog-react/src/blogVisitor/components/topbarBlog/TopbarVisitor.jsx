@@ -45,11 +45,11 @@ export default function TopbarVisitor() {
       <div className="topBlogRight">
         {user ? (
           <>
-          {/* <Link className="link" to="/weblog/settings">
+          <Link className="link" to="/weblog/settings">
             <div className="topbarIconContainer">
             <Settings />
           </div>
-          </Link> */}
+          </Link>
           <a 
             href="/weblog"
             className="logOutBtnClient"
