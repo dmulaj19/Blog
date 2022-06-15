@@ -64,7 +64,6 @@ export default function Login() {
     if(handleValidation()){
       mainAxios.post('/authenticate', loginInput)
       .then(res => {
-        console.log({authenticate: res})
         if (res.status === 200) {
           setUser(res?.data.user)
           setUserIsLoggedIn(true)
@@ -73,7 +72,6 @@ export default function Login() {
         }
         
       }).catch(err => {
-        console.log({ err })
         toast.error('Invalid credentials', {
             position: "top-right",
             autoClose: 5000,

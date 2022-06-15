@@ -41,7 +41,6 @@ export default function SettingsVisitor() {
   const updateUser = (e) => {
     e.preventDefault();
 
-    console.log("updating user")
     let userJson = {
       ...user,
       ...userInput
@@ -53,7 +52,6 @@ export default function SettingsVisitor() {
     formData.append("user", JSON.stringify(userJson))
     mainAxios.post(`/users/upload/${user.id}`, formData)
       .then(res => {
-        console.log(res)
         setUser(res?.data)
       })
 

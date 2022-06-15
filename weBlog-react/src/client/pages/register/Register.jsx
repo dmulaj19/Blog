@@ -49,7 +49,6 @@ export default function Register() {
       mainAxios.post('/users', userBody)
         .then(res => {
           if (res.status === 201) {
-            console.log({ res })
             setBloggerId(res?.data?.id)
           }
         })
@@ -188,7 +187,6 @@ export default function Register() {
             }
             mainAxios.post('/requests', request)
               .then(res => {
-                console.log({ res })
                 if (res.status === 201) {
                   setInfoMsg("Thank you for registering. Your blog will be shortly active.")
                  

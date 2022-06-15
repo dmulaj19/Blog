@@ -25,7 +25,6 @@ export default function Write() {
   }
 
   const fileSelectedHandler = event => {
-    console.log(event.target.files[0])
     setSelectedFile(event.target.files[0])
     setPostImage(URL.createObjectURL(event.target.files[0]))
   }
@@ -41,7 +40,6 @@ export default function Write() {
 
     mainAxios.post('/posts', formData)
       .then(res => {
-        console.log({ res })
         history.push("/");
       })
   }

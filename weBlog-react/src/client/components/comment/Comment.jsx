@@ -7,19 +7,48 @@ import "./comment.css";
 export default function Comment({ comment }) {
 
     const [user, setUser] = useState(null)
+    const [liked, setLiked] = useState(false)
+    const [disliked, setDisliked] = useState(false)
 
-    useEffect(() => {
+    const [comm, setComm] = useState(comment)
+
+    useEffect(() => {        
         if (comment) {
-            mainAxios.get(`/users/${comment?.userId}`)
+            mainAxios.put(`/users/${comment?.userId}`)
                 .then(res => {
                     if (res?.status === 200) {
                         setUser(res?.data)
                     }
                 })
         }
-    }, [comment]);
+    }, [comment, liked, disliked, comm]);
 
     const commentDate = new Date(comment?.createdDate).toLocaleDateString("en-US")
+
+    const likeComment = () => {
+        if (!liked) {
+            mainAxios.put(`/comments/${comment?.id}/like`)
+                .then(res => {
+                    if (res?.status === 200) {
+                        setComm(res?.data)
+                        setLiked(true)
+                    }
+                })
+        }
+
+    }
+
+    const dislikeComment = () => {
+        if (!disliked) {
+            mainAxios.put(`/comments/${comment?.id}/dislike`)
+                .then(res => {
+                    if (res?.status === 200) {
+                        setComm(res?.data)
+                        setDisliked(true)
+                    }
+                })
+        }
+    }
 
     return (
         <div class="comment-box">
@@ -32,10 +61,22 @@ export default function Comment({ comment }) {
             <span class="commenter-name">
                 <span>{user?.firstName + " " + user?.lastName}</span> <span class="comment-time">{commentDate}</span>
             </span>
-            <p class="comment-txt more">{comment?.content}</p>
+            <p class="comment-txt more">{comm?.content}</p>
             <div class="comment-meta">
-                <button class="comment-like"><ThumbUp /> {comment?.likes}</button>
-                <button class="comment-dislike"><ThumbDown /> {comment?.dislikes}</button>
+                <button
+                    class="comment-like"
+                    diabled={liked}
+                    onClick={likeComment}
+                >
+                    <ThumbUp /> {comm?.likes}
+                </button>
+                <button
+                    class="comment-dislike"
+                    diabled={disliked}
+                    onClick={dislikeComment}
+                >
+                    <ThumbDown /> {comm?.dislikes}
+                </button>
                 {/* <button class="comment-reply reply-popup"><Reply /> Reply</button> */}
             </div>
             {/* <div class="comment-box add-comment reply-box">

@@ -19,13 +19,11 @@ export default function UserList() {
       })
   }, []);
 
-  console.log({users})
   
   const handleDelete = (id) => {
     setUsers(users.filter((item) => item.id !== id));
     mainAxios.delete('/users/'+id)
       .then(res => {
-          console.log({res})
       })
   };
 

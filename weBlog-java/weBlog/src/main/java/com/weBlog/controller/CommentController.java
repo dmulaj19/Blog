@@ -58,6 +58,36 @@ public class CommentController {
         return ResponseEntity.ok(currentComment);
     }
 
+    @PutMapping("/{id}/like")
+    public ResponseEntity likeComment(@PathVariable Long id) {
+        Comment currentComment = commentRepository.findById(id).orElseThrow(RuntimeException::new);
+
+        if(currentComment != null){
+            currentComment.setLikes(currentComment.getLikes()+1);
+
+            currentComment = commentRepository.save(currentComment);
+        }else {
+            currentComment = commentRepository.save(currentComment);
+        }
+
+        return ResponseEntity.ok(currentComment);
+    }
+
+    @PutMapping("/{id}/dislike")
+    public ResponseEntity dislikeComment(@PathVariable Long id) {
+        Comment currentComment = commentRepository.findById(id).orElseThrow(RuntimeException::new);
+
+        if(currentComment != null){
+            currentComment.setDislikes(currentComment.getDislikes()+1);
+
+            currentComment = commentRepository.save(currentComment);
+        }else {
+            currentComment = commentRepository.save(currentComment);
+        }
+
+        return ResponseEntity.ok(currentComment);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity deleteComment(@PathVariable Long id) {
         commentRepository.deleteById(id);

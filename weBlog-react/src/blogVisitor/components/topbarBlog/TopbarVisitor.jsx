@@ -13,7 +13,7 @@ export default function TopbarVisitor() {
   // console.log({blogger: user })
 
   const handleLogout = (e) => {
-    console.log("blogger logging out")
+
     e.preventDefault();
     setUser(null);
     setAuthToken(null);

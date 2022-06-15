@@ -18,7 +18,7 @@ export default function Sidebar() {
       })
   }, []);
 
-  console.log({ categories })
+
   return (
     <div className="sidebarBlog">
       <div className="sidebarItemBlog">

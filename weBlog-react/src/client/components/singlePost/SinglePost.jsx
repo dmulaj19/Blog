@@ -26,12 +26,22 @@ export default function SinglePost({ post }) {
       mainAxios.get(`/comments/postId?postId=${post?.id}`)
         .then(res => {
           if (res?.status === 200) {
-            console.log({ comments: res?.data })
-            setComments(res?.data)
+            let comments = res?.data.map((comment) => {
+              return (
+                {
+                  ...comment,
+                  liked: false,
+                  disliked: false
+                }
+
+              )
+            })
+            setComments(comments)
           }
         })
     }
   }, [post, newComment]);
+
 
 
   useEffect(() => {
@@ -127,20 +137,25 @@ export default function SinglePost({ post }) {
   }
   const formSubmit = (event) => {
     event.preventDefault();
-    console.log({ selected })
+    //console.log({ selected })
   }
 
-  const onRemoveCat = (list, item) => {
-    console.log({ list, item })
 
-  }
 
   const onSelectCat = (list, item) => {
-    console.log({ list, item })
+    //console.log({ list, item })
 
     mainAxios.put(`/posts/${post?.id}/categories/${item?.cat}`)
       .then(res => {
-        console.log({ res })
+        //console.log({ res })
+      })
+  }
+  const onRemoveCat = (list, item) => {
+    //console.log({ list, item })
+
+    mainAxios.delete(`/posts/${post?.id}/categories/${item?.cat}`)
+      .then(res => {
+        //console.log({ res })
       })
   }
 
@@ -203,7 +218,7 @@ export default function SinglePost({ post }) {
             selectedValues={selectedValues}
             displayValue="key"
             onKeyPressFn={function noRefCheck() { }}
-            onRemove={(list, item) => onRemoveCat(list, item)}
+            onRemove={onRemoveCat}
             onSearch={function noRefCheck() { }}
             onSelect={onSelectCat}
             options={categories}

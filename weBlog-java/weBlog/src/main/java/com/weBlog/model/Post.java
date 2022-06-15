@@ -68,4 +68,8 @@ public class Post {
     public void assignCategory(Category category) {
         assignedCategories.add(category);
     }
+
+    public void deleteCategory(Category category) {
+        assignedCategories.remove(category);
+    }
 }

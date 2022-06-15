@@ -11,7 +11,7 @@ export const usePersistedState = (defaultValue, key) => {
     localStorage.setItem(key, JSON.stringify(state));
     } catch (e) {
       console.log("Local Storage is full, Please empty data");
-      //localStorage.clear(); 
+      localStorage.clear(); 
     }
   }, [key, state]);
 

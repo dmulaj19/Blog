@@ -9,7 +9,7 @@ import { Link, useHistory } from "react-router-dom";
 export default function Homepage() {
   const { user: [user, setUser], selectedBlog: [selectedBlog, setSelectedBlog] } = useAppContext()
 
-  console.log({ selectedBlog });
+
   return (
     <>
       <Header />

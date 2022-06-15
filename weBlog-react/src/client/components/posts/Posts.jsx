@@ -19,7 +19,7 @@ export default function Posts() {
       })
   },[]);
 
-   console.log({posts})
+
 
   return (
     <div className="posts">

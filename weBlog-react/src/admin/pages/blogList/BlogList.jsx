@@ -25,13 +25,10 @@ export default function BlogList() {
       })
   }, []);
 
-  console.log({ blogs })
-
   const handleDelete = (id) => {
     setBlogs(blogs.filter((item) => item.id !== id));
     mainAxios.delete('/blogs/' + id)
       .then(res => {
-        console.log({ res })
         toast.success('Blog deleted successfully!', {
           position: "top-right",
           autoClose: 5000,

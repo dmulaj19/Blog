@@ -18,7 +18,6 @@ export default function HomepageVisitor() {
       })
   }, []);
 
-  console.log({homepageBlogs: blogs })
   
   return (
     <>

@@ -94,4 +94,15 @@ public class PostController {
         postRepository.deleteById(id);
         return ResponseEntity.ok().build();
     }
+
+    @DeleteMapping("/{postId}/categories/{categoryId}")
+    Post deletePostCategory(
+            @PathVariable Long postId,
+            @PathVariable Long categoryId
+    ) {
+        Category category = categoryRepository.getOne(categoryId);
+        Post post = postRepository.getOne(postId);
+        post.deleteCategory(category);
+        return postRepository.save(post);
+    }
 }

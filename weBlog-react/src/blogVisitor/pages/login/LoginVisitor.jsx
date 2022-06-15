@@ -26,7 +26,7 @@ export default function LoginVisitor() {
 
     mainAxios.post('/authenticate', loginInput)
       .then(res => {
-        console.log({ authenticate: res })
+
         if (res.status === 200) {
           setUser(res?.data.user)
           setAuthToken(res.data.token)

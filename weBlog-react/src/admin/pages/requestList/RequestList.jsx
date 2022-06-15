@@ -21,8 +21,6 @@ export default function RequestList() {
       })
   }, [loading]);
 
-  console.log({ requests })
-
   const handleDelete = (id) => {
     setRequests(requests.filter((item) => item.id !== id));
   };
@@ -43,7 +41,6 @@ export default function RequestList() {
 
     mainAxios.post(`/requests/${request.id}`, blog)
       .then(res => {
-        console.log({res})
         setLoading(false)
       })
   }

@@ -15,7 +15,6 @@ export default function PostsVisitor() {
     mainAxios.get(`/blogs/${id}`)
       .then(res => {
         if (res?.status === 200) {
-          console.log({ blog: res?.data })
           setBlog(res?.data)
         }
       })

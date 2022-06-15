@@ -10,10 +10,7 @@ export default function Topbar() {
 
   let history = useHistory();
 
-  console.log({ user })
-
   const handleLogout = (e) => {
-    console.log("admin logging out")
     e.preventDefault();
     setUser(null);
     setAuthToken(null);

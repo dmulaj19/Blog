@@ -47,7 +47,6 @@ export default function SinglePostVisitor({ post }) {
       mainAxios.get(`/comments/postId?postId=${post?.id}`)
         .then(res => {
           if (res?.status === 200) {
-            console.log({ comments: res?.data })
             setComments(res?.data)
           }
         })

@@ -9,7 +9,7 @@ export default function SingleVisitor() {
   const { id } = useParams();
   const [post, setPost] = useState(null)
 
-  console.log({postId: id})
+
 
   useEffect(() => {
       mainAxios.get('/posts/'+id)

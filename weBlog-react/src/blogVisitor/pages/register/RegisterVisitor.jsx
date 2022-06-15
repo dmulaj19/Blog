@@ -39,7 +39,6 @@ export default function Register() {
     mainAxios.post('/users', userBody)
       .then(res => {
         if (res.status === 201) {
-          console.log({ res })
           history.push("/weblog/login");
         }
       })

@@ -34,7 +34,6 @@ export default function Settings() {
   }
 
   const fileSelectedHandler = event => {
-    console.log(event.target.files[0])
     setSelectedFile(event.target.files[0])
     setPreviewImage(URL.createObjectURL(event.target.files[0]))
   }
@@ -42,7 +41,7 @@ export default function Settings() {
   const updateUser = (e) => {
     e.preventDefault();
 
-    console.log("updating user")
+
     let userJson = {
       ...user,
       ...userInput
@@ -54,7 +53,6 @@ export default function Settings() {
     formData.append("user", JSON.stringify(userJson))
     mainAxios.post(`/users/upload/${user.id}`, formData)
       .then(res => {
-        console.log(res)
         setUser(res?.data)
       })
   }

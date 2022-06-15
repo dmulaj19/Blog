@@ -26,13 +26,13 @@ export default function Header() {
 
   useEffect(() => {
     if (selectedFile) {
-      console.log("just uploaded a blog picture")
+
       let formData = new FormData();
       formData.append("file", selectedFile);
 
       mainAxios.put(`/blogs/${selectedBlog?.id}/uploadPhoto`, formData)
       .then(res => {
-        console.log({ res })  
+
         setSelectedBlog(res?.data)     
       })
     }
