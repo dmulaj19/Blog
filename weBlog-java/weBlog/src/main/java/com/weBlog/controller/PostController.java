@@ -7,6 +7,7 @@ import com.weBlog.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -68,7 +69,7 @@ public class PostController {
     }
 
     @PostMapping("/{id}")
-    public ResponseEntity updatePost(@PathVariable Long id, @RequestPart("file") MultipartFile file, @RequestPart("post") String post) throws IOException {
+    public ResponseEntity updatePost(@PathVariable Long id, @Nullable @RequestPart("file") MultipartFile file, @RequestPart("post") String post) throws IOException {
         Post currentPost = postRepository.findById(id).orElseThrow(RuntimeException::new);
 
         if(currentPost != null){
@@ -76,7 +77,9 @@ public class PostController {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.findAndRegisterModules();
             postJson = objectMapper.readValue(post, Post.class);
-            currentPost.setImage(file.getBytes());
+            if(file != null){
+                currentPost.setImage(file.getBytes());
+            }
             currentPost.setContent(postJson.getContent());
             currentPost.setTitle(postJson.getTitle());
 

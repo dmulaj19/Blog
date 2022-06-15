@@ -8,6 +8,10 @@ import { useHistory } from "react-router-dom";
 import Comment from "../comment/Comment";
 import Select from "react-select";
 import Multiselect from 'multiselect-react-dropdown';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+toast.configure()
 
 export default function SinglePost({ post }) {
   const { user: [user, setUser], selectedBlog: [selectedBlog, setSelectedBlog] } = useAppContext()
@@ -97,10 +101,20 @@ export default function SinglePost({ post }) {
     formData.append("file", selectedFile);
     formData.append("post", JSON.stringify(body))
 
-
     mainAxios.post(`/posts/${post?.id}`, formData)
       .then(res => {
-        history.push("/");
+        console.log({res})
+        toast.success('Post updated successfully!', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          })
+          // setTimeout(()=>{history.push("/")},4000)
+
       })
   }
 
@@ -148,6 +162,7 @@ export default function SinglePost({ post }) {
     mainAxios.put(`/posts/${post?.id}/categories/${item?.cat}`)
       .then(res => {
         //console.log({ res })
+
       })
   }
   const onRemoveCat = (list, item) => {
@@ -159,14 +174,16 @@ export default function SinglePost({ post }) {
       })
   }
 
+  console.log({imggg: `data:image/jpeg;base64,${post?.image}`})
+
   return (
     <div className="singlePost">
       <div className="singlePostWrapper">
-        <img
+        {<img
           className="singlePostImg"
           src={postImage ? postImage : `data:image/jpeg;base64,${post?.image}`}
           alt=""
-        />
+        />}
         <input
           type="file"
           name="image"

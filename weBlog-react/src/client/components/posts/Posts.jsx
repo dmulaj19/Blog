@@ -19,8 +19,6 @@ export default function Posts() {
       })
   },[]);
 
-
-
   return (
     <div className="posts">
       {posts && posts.map((post) => {

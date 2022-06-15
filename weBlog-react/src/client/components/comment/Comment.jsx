@@ -14,7 +14,7 @@ export default function Comment({ comment }) {
 
     useEffect(() => {        
         if (comment) {
-            mainAxios.put(`/users/${comment?.userId}`)
+            mainAxios.get(`/users/${comment?.userId}`)
                 .then(res => {
                     if (res?.status === 200) {
                         setUser(res?.data)
@@ -49,6 +49,8 @@ export default function Comment({ comment }) {
                 })
         }
     }
+
+    console.log({user})
 
     return (
         <div class="comment-box">

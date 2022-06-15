@@ -56,7 +56,7 @@ public class UserController {
 
     @PostMapping("/upload/{id}")
     //public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("user") User user) {
-    public ResponseEntity uploadFile(@PathVariable Long id, @RequestPart("file") MultipartFile file, @RequestPart("user") String user) {
+    public ResponseEntity uploadFile(@PathVariable Long id, @Nullable @RequestPart("file") MultipartFile file, @RequestPart("user") String user) {
         String message = "";
         User currentUser = userRepository.findById(id).orElseThrow(RuntimeException::new);
 

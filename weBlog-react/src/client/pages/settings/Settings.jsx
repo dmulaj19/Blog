@@ -3,7 +3,10 @@ import Sidebar from "../../components/sidebarBlog/Sidebar";
 import { useAppContext } from  '../../../context/context'
 import { useState, useEffect } from "react";
 import { mainAxios } from '../../../mainAxios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
+toast.configure()
 
 export default function Settings() {
   const { user: [user, setUser], selectedBlog: [selectedBlog, setSelectedBlog] } = useAppContext()
@@ -53,7 +56,18 @@ export default function Settings() {
     formData.append("user", JSON.stringify(userJson))
     mainAxios.post(`/users/upload/${user.id}`, formData)
       .then(res => {
-        setUser(res?.data)
+        if(res?.status === 200) {
+          setUser(res?.data)
+          toast.success('User updated successfully!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            })
+        }
       })
   }
 
