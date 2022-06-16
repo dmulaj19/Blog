@@ -229,6 +229,15 @@
     margin-top: 15px;
 }
 
+.swal-button--delete{
+  background-color: red;
+  color: white;
+}
+.swal-button--delete:hover{
+  background-color: red !important;
+  color: white !important;
+}
+
 /*======Responsive CSS=======*/
 @media (max-width: 767px){
 .comments .commenter-name {

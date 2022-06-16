@@ -30,6 +30,7 @@ import TopbarVisitor from "./blogVisitor/components/topbarBlog/TopbarVisitor";
 import PostsVisitor from "./blogVisitor/components/posts/PostsVisitor";
 import SingleVisitor from "./blogVisitor/pages/single/SingleVisitor";
 import SettingsVisitor from "./blogVisitor/pages/settings/SettingsVisitor";
+import About from "./client/pages/about/About";
 
 const AppContainer = function (props) {
     const { user: [user, setUser], selectedBlog: [selectedBlog, setSelectedBlog] } = useAppContext()
@@ -93,12 +94,15 @@ const AppContainer = function (props) {
                                         <Route path="/posts">
                                             <Homepage />
                                         </Route>
+                                        <Route path="/about">
+                                           { bloggerLoggedIn? <About /> : <Login/>}
+                                        </Route>
                                         <Route path="/register">
                                             {bloggerLoggedIn ? <Homepage /> : <Register />}
                                         </Route>
                                         <Route path="/login"> <Login /></Route>
                                         <Route path="/post/:id">
-                                            <Single />
+                                            {bloggerLoggedIn? <Single /> : <Login/>}
                                         </Route>
                                         <Route path="/write">{bloggerLoggedIn ? <Write /> : <Login />}</Route>
                                         <Route path="/settings">

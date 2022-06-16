@@ -1,6 +1,6 @@
 import "./settings.css";
 import Sidebar from "../../components/sidebarBlog/Sidebar";
-import { useAppContext } from  '../../../context/context'
+import { useAppContext } from '../../../context/context'
 import { useState, useEffect } from "react";
 import { mainAxios } from '../../../mainAxios';
 import { toast } from 'react-toastify';
@@ -19,12 +19,12 @@ export default function Settings() {
   useEffect(() => {
     mainAxios.get('/users/' + user?.id)
       .then(res => {
+        console.log({ user: res?.data })
         setBlogger(res?.data)
         setPreviewImage(`data:image/jpeg;base64,${res?.data?.image}`)
       })
   }, []);
 
-  // console.log({blogger})
 
   const handleUpdateInput = (e) => {
     const key = e.target.name
@@ -37,8 +37,21 @@ export default function Settings() {
   }
 
   const fileSelectedHandler = event => {
-    setSelectedFile(event.target.files[0])
-    setPreviewImage(URL.createObjectURL(event.target.files[0]))
+    if (event.target.files[0].size > 100000) {
+      toast.error('User avatar size too large!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
+    } else {
+      setSelectedFile(event.target.files[0])
+      setPreviewImage(URL.createObjectURL(event.target.files[0]))
+    }
+
   }
 
   const updateUser = (e) => {
@@ -56,7 +69,7 @@ export default function Settings() {
     formData.append("user", JSON.stringify(userJson))
     mainAxios.post(`/users/upload/${user.id}`, formData)
       .then(res => {
-        if(res?.status === 200) {
+        if (res?.status === 200) {
           setUser(res?.data)
           toast.success('User updated successfully!', {
             position: "top-right",
@@ -66,7 +79,7 @@ export default function Settings() {
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            })
+          })
         }
       })
   }
@@ -97,6 +110,8 @@ export default function Settings() {
           <input type="text" defaultValue={user?.firstName} name="firstName" onChange={handleUpdateInput} />
           <label>Last Name</label>
           <input type="text" defaultValue={user?.lastName} name="lastName" onChange={handleUpdateInput} />
+          <label>Description</label>
+          <textarea type="text" defaultValue={user?.description} name="description" onChange={handleUpdateInput} />
           <label>Phone Number</label>
           <input type="text" defaultValue={user?.phoneNumber} name="phoneNumber" onChange={handleUpdateInput} />
           <label>Email</label>

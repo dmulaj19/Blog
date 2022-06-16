@@ -35,34 +35,36 @@ export default function Topbar() {
               HOME
             </Link>
           </li>
-          <li className="topBlogListItem">ABOUT</li>
-          <li className="topBlogListItem">CONTACT</li>
+          {/* <li className="topBlogListItem">CONTACT</li> */}
           <li className="topBlogListItem">
             <Link className="link" to="/write">
               WRITE
             </Link>
           </li>
+          <li className="topBlogListItem"><Link className="link" to="/about">
+            ABOUT
+          </Link></li>
           {/* {user && <li className="topBlogListItem">LOGOUT</li>} */}
-          
+
         </ul>
       </div>
       <div className="topBlogRight">
         {user ? (
           <>
-          <Link className="link" to="/settings">
-            <div className="topbarIconContainer">
-            <Settings />
-          </div>
-          </Link>
-          <a 
-            href="/"
-            className="logOutBtnClient"
-            onClick={handleLogout}
-          >
-            LOG OUT
-          </a>
+            <Link className="link" to="/settings">
+              <div className="topbarIconContainer">
+                <Settings />
+              </div>
+            </Link>
+            <a
+              href="/"
+              className="logOutBtnClient"
+              onClick={handleLogout}
+            >
+              LOG OUT
+            </a>
           </>
-          
+
         ) : (
           <ul className="topBlogList">
             <li className="topBlogListItem">

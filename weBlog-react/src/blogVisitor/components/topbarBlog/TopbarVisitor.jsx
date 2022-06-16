@@ -37,7 +37,7 @@ export default function TopbarVisitor() {
             </Link>
           </li>
           <li className="topBlogListItem">ABOUT</li>
-          <li className="topBlogListItem">CONTACT</li>          
+          {/* <li className="topBlogListItem">CONTACT</li>           */}
           {/* {user && <li className="topBlogListItem">LOGOUT</li>} */}
           
         </ul>

@@ -5,7 +5,11 @@ import { mainAxios } from '../../../mainAxios';
 import { useHistory } from "react-router-dom";
 import { useAppContext } from '../../../context/context'
 import { CloudUpload } from "@material-ui/icons";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import swal from 'sweetalert';
 
+toast.configure()
 export default function Write() {
 
   let history = useHistory();
@@ -32,16 +36,29 @@ export default function Write() {
   const submitPost = (e) => {
     e.preventDefault();
 
-    let body = { ...post, blog: { id: selectedBlog?.id } }
-
-    let formData = new FormData();
-    formData.append("file", selectedFile);
-    formData.append("post", JSON.stringify(body))
-
-    mainAxios.post('/posts', formData)
-      .then(res => {
-        history.push("/");
+    if (!selectedFile) {
+      toast.info('Please upload a cover photo for your post!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
       })
+    } else {
+      let body = { ...post, blog: { id: selectedBlog?.id } }
+
+      let formData = new FormData();
+      formData.append("file", selectedFile);
+      formData.append("post", JSON.stringify(body))
+
+      mainAxios.post('/posts', formData)
+        .then(res => {
+          history.push("/");
+        })
+    }
+
   }
 
   return (
@@ -62,7 +79,7 @@ export default function Write() {
         /> */}
         <label className="custom-file-upload">
           <input
-            style={{display: 'none'}}
+            style={{ display: 'none' }}
             type="file"
             name="image"
             id="file"

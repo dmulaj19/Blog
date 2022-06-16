@@ -10,6 +10,7 @@ import Select from "react-select";
 import Multiselect from 'multiselect-react-dropdown';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import swal from 'sweetalert';
 
 toast.configure()
 
@@ -89,18 +90,19 @@ export default function SinglePost({ post }) {
   }
 
   const fileSelectedHandler = event => {
+    console.log({file: event.target.files[0]})
     setSelectedFile(event.target.files[0])
     setPostImage(URL.createObjectURL(event.target.files[0]))
   }
 
-  const updatePost = () => {
-
+  const updatePost = (e) => {
+    e.preventDefault()
     let body = { ...post, ...updatedPost, blog: { id: selectedBlog.id } }
 
     let formData = new FormData();
     formData.append("file", selectedFile);
     formData.append("post", JSON.stringify(body))
-
+    console.log(JSON.stringify(formData))
     mainAxios.post(`/posts/${post?.id}`, formData)
       .then(res => {
         console.log({res})
@@ -119,10 +121,36 @@ export default function SinglePost({ post }) {
   }
 
   const deletePost = () => {
-    mainAxios.delete(`/posts/${post?.id}`)
-      .then(res => {
-        history.push("/");
-      })
+    swal({
+      title: "Warning",
+      text: "Are you sure that you want to delete this post?",
+      icon: "warning",
+      dangerMode: true,
+      showCancelButton: true,      
+      confirmButtonColor: "#DD6B55",   
+      confirmButtonText: "Yes, delete it!",   
+      cancelButtonText: "No, cancel plx!",   
+      closeOnConfirm: true,   
+      closeOnCancel: true,
+      buttons: {
+        delete: {
+          text: "Continue",
+          value: "delete",
+          color: "#DD6B55"
+        }, 
+        cancel: "Cancel"
+      },
+    })
+    .then(value => {
+      if (value === "delete") {
+        mainAxios.delete(`/posts/${post?.id}`)
+        .then(res => {
+          history.push("/");
+          })
+        // swal("Deleted!", "Your imaginary file has been deleted!", "success");
+      }
+    });
+    
   }
 
   const handleCommentInput = (e) => {
@@ -174,7 +202,6 @@ export default function SinglePost({ post }) {
       })
   }
 
-  console.log({imggg: `data:image/jpeg;base64,${post?.image}`})
 
   return (
     <div className="singlePost">
@@ -205,8 +232,8 @@ export default function SinglePost({ post }) {
           <button className="singlePostEdit" onClick={updatePost}>
             <Publish />
           </button>
-          <button className="singlePostEdit" onClick={updatePost}>
-            <Delete className="deleteBtn" onClick={deletePost} />
+          <button className="singlePostEdit" onClick={deletePost}>
+            <Delete className="deleteBtn"/>
           </button>
         </div>
         <div className="singlePostInfo">

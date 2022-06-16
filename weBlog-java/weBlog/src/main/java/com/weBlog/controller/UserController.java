@@ -69,6 +69,7 @@ public class UserController {
             if (currentUser != null) {
                 currentUser.setFirstName(userJson.getFirstName());
                 currentUser.setLastName(userJson.getLastName());
+                currentUser.setDescription(userJson.getDescription());
                 currentUser.setEmail(userJson.getEmail());
                 currentUser.setUsername(userJson.getUsername());
                 currentUser.setPassword(userJson.getPassword());
@@ -98,6 +99,7 @@ public class UserController {
         if (currentUser != null) {
             currentUser.setFirstName(User.getFirstName());
             currentUser.setLastName(User.getLastName());
+            currentUser.setDescription(User.getDescription());
             currentUser.setEmail(User.getEmail());
             currentUser.setUsername(User.getUsername());
             currentUser.setPassword(User.getPassword());

@@ -73,19 +73,22 @@ public class PostController {
         Post currentPost = postRepository.findById(id).orElseThrow(RuntimeException::new);
 
         if(currentPost != null){
+            System.out.println("HYRI TE IF");
             Post postJson;
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.findAndRegisterModules();
             postJson = objectMapper.readValue(post, Post.class);
             if(file != null){
+                System.out.printf("ENTERED TO CHANGE");
                 currentPost.setImage(file.getBytes());
             }
             currentPost.setContent(postJson.getContent());
             currentPost.setTitle(postJson.getTitle());
 
-            currentPost = postRepository.save(postJson);
+            currentPost = postRepository.save(currentPost);
 
         }else {
+            System.out.println("HYRI TE ELSE");
             currentPost = postRepository.save(currentPost);
         }
 

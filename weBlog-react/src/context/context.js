@@ -8,10 +8,12 @@ export const usePersistedState = (defaultValue, key) => {
   );
   React.useEffect(() => {
     try {
-    localStorage.setItem(key, JSON.stringify(state));
+      console.log("storing ", key);
+      localStorage.setItem(key, JSON.stringify(state));
     } catch (e) {
+      console.log({e})
       console.log("Local Storage is full, Please empty data");
-      localStorage.clear(); 
+      //localStorage.clear();
     }
   }, [key, state]);
 
@@ -33,8 +35,8 @@ export const AppContextProvider = ({ children }) => {
 
   store = {
     user,
-    selectedBlog
+    selectedBlog,
   };
-
+  console.log({ store });
   return <AppContext.Provider value={store}>{children}</AppContext.Provider>;
 };

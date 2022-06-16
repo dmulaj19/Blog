@@ -3,7 +3,7 @@ import "./post.css";
 
 export default function Post({ categories, postId, img, postTitle, postContent, postDate }) {
 
-  console.log({img})
+
 
   return (
     <div className="post">
