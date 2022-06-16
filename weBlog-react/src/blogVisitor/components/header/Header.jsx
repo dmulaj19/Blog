@@ -1,4 +1,4 @@
-import "./header.css";
+import "../../../client/components/header/header.css";
 import { useAppContext } from '../../../context/context'
 import { Link, useHistory } from "react-router-dom";
 
@@ -13,8 +13,8 @@ export default function Header() {
             <span className="headerTitleSm">
               Create a blog to start sharing your thoughts
             </span>
-            <Link to="/register">
-              <button className="getStartedBtn">Get Started</button>
+            <Link to="/register" className="getStartedBtn">
+              <button >Get Started</button>
             </Link>
           </>
           :

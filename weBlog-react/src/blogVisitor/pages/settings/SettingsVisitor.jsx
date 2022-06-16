@@ -1,4 +1,4 @@
-import "./settings.css";
+import "../../../client/pages/settings/settings.css";
 import Sidebar from "../../components/sidebarBlog/Sidebar";
 import { useAppContext } from '../../../context/context'
 import { useState, useEffect } from "react";

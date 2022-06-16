@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Sidebar from "../../components/sidebarBlog/Sidebar";
 import SinglePostVisitor from "../../components/singlePost/SinglePostVisitor";
-import "./single.css";
+import "../../../client/pages/single/single.css";
 import { useParams } from "react-router-dom";
 import { mainAxios } from '../../../mainAxios';
 

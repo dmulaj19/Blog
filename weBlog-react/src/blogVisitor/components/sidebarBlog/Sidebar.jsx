@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "./sidebar.css";
+import "../../../client/components/sidebarBlog/sidebar.css";
 import { useAppContext } from '../../../context/context'
 import { useState, useEffect } from "react";
 import { mainAxios } from '../../../mainAxios';

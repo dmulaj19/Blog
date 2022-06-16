@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Header from "../../components/header/Header";
 import Posts from "../../components/posts/PostsVisitor";
 import Sidebar from "../../components/sidebarBlog/Sidebar";
-import "./homepage.css";
+import "../../../client/pages/homepage/homepage.css";
 import { useAppContext } from '../../../context/context'
 import { Link, useHistory } from "react-router-dom";
 import { mainAxios } from '../../../mainAxios';

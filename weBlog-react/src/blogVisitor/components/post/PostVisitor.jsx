@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "./post.css";
+import "../../../client/components/post/post.css";
 
 export default function PostsVisitor({ categories, postId, img, postTitle, postContent, postDate }) {
 

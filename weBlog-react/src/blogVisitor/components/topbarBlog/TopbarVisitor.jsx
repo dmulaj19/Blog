@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "./topbar.css";
+import "../../../client/components/topbarBlog/topbar.css";
 import { useAppContext } from '../../../context/context'
 import { setAuthToken } from '../../../mainAxios'
 import { useHistory } from "react-router-dom";

@@ -121,9 +121,9 @@ export default function Login() {
               name="blogs"
               onChange={(e) => onBlogSelect(e)}
             >
-              <option value="default" disabled hidden>Select your blog</option>
+              <option value="default" className="select-control-option" disabled hidden>Select your blog</option>
               {user?.blogs?.map((blog, index) => (
-                <option value={blog.id} key={index}>{blog.name}</option>
+                <option value={blog.id} className="select-control-option" key={index}>{blog.name}</option>
               ))}
             </select>
             <button className="loginButton">Continue</button>

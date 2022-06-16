@@ -46,8 +46,8 @@ export default function Header() {
             <span className="headerTitleSm">
               Create a blog to start sharing your thoughts
             </span>
-            <Link to="/register">
-              <button className="getStartedBtn">Get Started</button>
+            <Link to="/register" className="getStartedBtn">
+              <button className="button-inside">Get Started</button>
             </Link>
           </>
           :
@@ -73,7 +73,7 @@ export default function Header() {
           onChange={fileSelectedHandler}
           class="writePPInput"
         />
-        <CloudUpload className="uploadIcon" /> Upload Photo of Blog
+        <CloudUpload className="uploadIcon" /> Upload blog cover
       </label>}
     </div>
   );

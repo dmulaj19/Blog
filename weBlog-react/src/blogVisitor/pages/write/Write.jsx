@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import axios from 'axios'
-import "./write.css";
+import "../../../client/pages/write/write.css";
 import { mainAxios } from '../../../mainAxios';
 import { useHistory } from "react-router-dom";
 import { useAppContext } from '../../../context/context'

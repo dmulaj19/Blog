@@ -11,6 +11,7 @@ import Multiselect from 'multiselect-react-dropdown';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import swal from 'sweetalert';
+import { CloudUpload } from "@material-ui/icons";
 
 toast.configure()
 
@@ -211,14 +212,18 @@ export default function SinglePost({ post }) {
           src={postImage ? postImage : `data:image/jpeg;base64,${post?.image}`}
           alt=""
         />}
-        <input
-          type="file"
-          name="image"
-          id="file"
-          accept=".jpeg, .png, .jpg"
-          onChange={fileSelectedHandler}
-          class="writePPInput"
-        />
+        <label className="custom-file-upload">
+          <input
+            style={{ display: 'none' }}
+            type="file"
+            name="image"
+            id="file"
+            accept=".jpeg, .png, .jpg"
+            onChange={fileSelectedHandler}
+            
+          />
+          <CloudUpload className="uploadIcon" /> Upload blog cover
+        </label>
         <div className="singlePostTitleWrapper">
           <input
             className="singlePostTitle"

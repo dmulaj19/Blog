@@ -12,21 +12,30 @@
 
 .headerTitleSm {
   position: absolute;
-  top: 18%;
-  font-size: 25px;
+  top: 9rem;
+  font-size: 30px;
+  font-weight: 600;
 }
+
 .getStartedBtn {
   position: absolute;
-  top: 25%;
-  background-color: rgb(0, 128, 113);
+  top: 13rem;
+  background-color: lightcoral;
   cursor: pointer;
   padding: 18px;
   border: none;
   color: white;
   border-radius: 10px;
   font-size: 20px;
-  left: 44%
 }
+
+.button-inside {
+  background: transparent;
+  border: none;
+  color: white;
+  font-weight: 600;
+}
+
 .headerTitleLg {
   position: absolute;
   top: 5%;

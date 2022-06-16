@@ -1,5 +1,5 @@
 import Post from "../post/PostVisitor";
-import "./posts.css";
+import "../../../client/components/posts/posts.css";
 import { useAppContext } from '../../../context/context'
 import { useState, useEffect } from "react";
 import { mainAxios } from '../../../mainAxios';

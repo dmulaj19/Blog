@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import axios from 'axios'
 import { useAppContext } from '../../../context/context'
-import "./login.css";
+import "../../../client/pages/login/login.css";
 import { Link, useHistory } from "react-router-dom";
 import { mainAxios, setAuthToken } from '../../../mainAxios'
 

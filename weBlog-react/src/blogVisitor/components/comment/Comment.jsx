@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Edit, Delete, Publish, ThumbUp, ThumbDown, Reply } from "@material-ui/icons";
 import { mainAxios } from '../../../mainAxios';
 import avatar from "./cat_avatar.png"
-import "./comment.css";
+import "../../../client/components/comment/comment.css";
 
 export default function Comment({ comment }) {
 

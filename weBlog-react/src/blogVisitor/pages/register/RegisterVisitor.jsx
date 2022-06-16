@@ -1,4 +1,4 @@
-import "./register.css"
+import "../../../client/pages/register/register.css";
 import { Link, useHistory } from "react-router-dom";
 import { mainAxios } from '../../../mainAxios'
 import { useAppContext } from '../../../context/context'
@@ -46,7 +46,7 @@ export default function Register() {
 
   return (
     <div className="register">
-      <div>
+      <div class="registerFormWrapper">
           <span className="registerTitle">Register</span>
           <form className="registerForm" onSubmit={handleRegister}>
             <label>First Name</label>

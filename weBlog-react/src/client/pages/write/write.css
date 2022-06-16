@@ -3,8 +3,7 @@
 }
 
 .writeImg {
-  margin-left: 150px;
-  width: 70vw;
+  padding: 0px 40px;
   height: 350px;
   border-radius: 10px;
   object-fit: cover;
@@ -68,22 +67,22 @@
 
 .writeSubmit {
   position: absolute;
-  top: 20px;
-  right: 290px;
+  width: 150px;
+  top: 2rem;
+  right: 12rem;
   color: white;
-  background-color: teal;
+  background-color: lightcoral;
   padding: 10px;
   border: none;
   border-radius: 10px;
-  font-size: 16px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
+  font-size: 18px;
 }
 .custom-file-upload {
   display: inline-block;
+  width: 100%;
   padding: 15px 600px;
   cursor: pointer;
+  text-align: center;
 }
 /* input[type="file"] {
   display: none;
@@ -91,5 +90,5 @@
 .uploadIcon{
   font-size: 20px;
   margin-left: 5px;
-  color: teal;
+  color: lightcoral;
 }

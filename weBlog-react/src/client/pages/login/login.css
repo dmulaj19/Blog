@@ -60,9 +60,13 @@
   color: white;
   border-radius: 10px;
 }
+
+.select-control, .select-control-option {
+  width: 100%;
+}
+
 .select-control {
   display: block;
-  width: 382px;
   padding: 0.5rem 0.75rem;
   font-size: 1rem;
   line-height: 1.25;
@@ -73,6 +77,12 @@
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 0.25rem;
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+
+.select-control-option {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .loginInputError {
